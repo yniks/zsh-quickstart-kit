@@ -105,7 +105,7 @@ load-our-ssh-keys() {
         # Launch a new instance of the agent
         ssh-agent -s &> .ssh/ssh-agent
    fi
-   eval $(cat .ssh/ssh-agent)
+   eval $(cat .ssh/ssh-agent) > /dev/null
   fi
   # Fun with SSH
   if [ $(ssh-add -l | grep -c "The agent has no identities." ) -eq 1 ]; then
