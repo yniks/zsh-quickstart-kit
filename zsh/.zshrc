@@ -120,7 +120,7 @@ load-our-ssh-keys() {
       ssh-add -qA
     fi
 
-    for key in $(find ~/.ssh -type f -a \( -name '*id_rsa' -o -name '*id_dsa' -o -name '*id_ecdsa' \))
+    for key in $(find ~/.ssh -type f -a \( -name '*id_rsa' -o -name '*id_dsa' -o -name '*id_ecdsa' -name '*.pub' -name '*.pem'\))
     do
       if [ -f ${key} -a $(ssh-add -l | grep -F -c "$(ssh-keygen -l -f $key | awk '{print $2}')" ) -eq 0 ]; then
         if ( which keychain &> /dev/null ); then
@@ -212,7 +212,7 @@ QUICKSTART_KIT_REFRESH_IN_DAYS=7
 # Disable Oh-My-ZSH's internal updating. Let it get updated when user
 # does a zgen update. Closes #62.
 DISABLE_AUTO_UPDATE=true
-
+DONT_PRINT_SSH_KEY_LIST=true
 # Expand aliases inline - see http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
    if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
